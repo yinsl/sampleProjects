@@ -1,0 +1,21 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: kafka-consumer
+  cloud.stream:
+    bindings:
+      shop_channel:
+        destination: zhibo
+    default-binder: kafka #默认的binder是kafka
+  kafka:
+    bootstrap-servers: localhost:9092 #kafka服务地址
+    consumer:
+      group-id: consumer1
+server:
+  port: 8200

@@ -1,0 +1,24 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: kafka-producer
+  cloud.stream:
+    bindings:
+      #配置自己定义的通道与哪个中间件交互
+      shop_channel: #ShopChannel里Input和Output的值
+        destination: zhibo #目标主题
+    default-binder: kafka #默认的binder是kafka
+  kafka:
+    bootstrap-servers: localhost:9092 #kafka服务地址
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      client-id: producer1
+server:
+  port: 8100
